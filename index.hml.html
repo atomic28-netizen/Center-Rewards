@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rewards Center - Featured Offers</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background-color: #f9fafb;
+    }
+
+    .rewards-center {
+      width: 100%;
+      max-width: 1250px;
+      margin: 0 auto;
+      padding: 70px 20px;
+      font-family: Arial, Helvetica, sans-serif;
+      color: #111827;
+    }
+
+    /* HEADER */
+    .rewards-header {
+      text-align: center;
+      margin-bottom: 45px;
+    }
+
+    .rewards-label {
+      display: inline-block;
+      padding: 8px 17px;
+      border-radius: 50px;
+      background: #111827;
+      color: #ffffff;
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 2px;
+      margin-bottom: 15px;
+    }
+
+    .rewards-header h1 {
+      margin: 0;
+      font-size: clamp(36px, 5vw, 58px);
+      font-weight: 800;
+      letter-spacing: -2px;
+    }
+
+    .rewards-header p {
+      margin: 14px auto 0;
+      max-width: 600px;
+      color: #6b7280;
+      font-size: 17px;
+      line-height: 1.6;
+    }
+
+    /* GRID */
+    .rewards-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 25px;
+    }
+
+    /* CARD */
+    .reward-card {
+      position: relative;
+      overflow: hidden;
+      background: #ffffff;
+      border: 1px solid #e5e7eb;
+      border-radius: 28px;
+      box-shadow: 0 18px 50px rgba(0,0,0,0.08);
+      transition: all 0.35s ease;
+    }
+
+    .reward-card:hover {
+      transform: translateY(-9px);
+      box-shadow: 0 30px 70px rgba(0,0,0,0.16);
+    }
+
+    /* CARD TOP */
+    .amazon-card {
+      border-top: 5px solid #ff9900;
+    }
+
+    .venmo-card {
+      border-top: 5px solid #008cff;
+    }
+
+    .apple-card {
+      border-top: 5px solid #111111;
+    }
+
+    /* BADGE */
+    .featured-badge {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      z-index: 5;
+      padding: 8px 13px;
+      border-radius: 50px;
+      background: rgba(17,24,39,0.94);
+      color: #ffffff;
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: 1px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.15);
+    }
+
+    /* LOGO */
+    .logo-area {
+      height: 245px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 55px 35px 25px;
+      background: linear-gradient(145deg, #f8fafc, #ffffff);
+      border-bottom: 1px solid #eeeeee;
+    }
+
+    .logo-area img {
+      display: block;
+      width: auto;
+      height: auto;
+      max-width: 78%;
+      max-height: 105px;
+      object-fit: contain;
+      transition: transform 0.35s ease;
+    }
+
+    .reward-card:hover .logo-area img {
+      transform: scale(1.05);
+    }
+
+    /* CONTENT */
+    .reward-content {
+      padding: 30px;
+    }
+
+    .reward-type {
+      display: block;
+      margin-bottom: 7px;
+      color: #6b7280;
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: 1.5px;
+    }
+
+    .reward-content h2 {
+      margin: 0;
+      font-size: 30px;
+      font-weight: 800;
+      letter-spacing: -1px;
+    }
+
+    /* REWARD VALUE */
+    .reward-value {
+      margin-top: 12px;
+      font-size: 43px;
+      line-height: 1;
+      font-weight: 900;
+      letter-spacing: -2px;
+    }
+
+    .reward-value small {
+      display: block;
+      margin-top: 7px;
+      font-size: 10px;
+      line-height: 1;
+      letter-spacing: 2px;
+      color: #9ca3af;
+      font-weight: 800;
+    }
+
+    /* DESCRIPTION */
+    .reward-content p {
+      min-height: 75px;
+      margin: 18px 0 25px;
+      color: #6b7280;
+      font-size: 14px;
+      line-height: 1.7;
+    }
+
+    .reward-content p strong {
+      color: #374151;
+    }
+
+    /* BUTTON */
+    .reward-button {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+      padding: 16px 20px;
+      border-radius: 14px;
+      color: #ffffff !important;
+      text-decoration: none !important;
+      font-size: 14px;
+      font-weight: 800;
+      transition: all 0.25s ease;
+    }
+
+    .reward-button span {
+      font-size: 22px;
+      transition: transform 0.25s ease;
+    }
+
+    .reward-button:hover span {
+      transform: translateX(5px);
+    }
+
+    /* AMAZON */
+    .amazon-button {
+      background: linear-gradient(135deg, #ff9900, #ff7600);
+      box-shadow: 0 10px 25px rgba(255,153,0,0.25);
+    }
+
+    .amazon-button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 15px 35px rgba(255,153,0,0.35);
+    }
+
+    /* VENMO */
+    .venmo-button {
+      background: linear-gradient(135deg, #008cff, #0066ff);
+      box-shadow: 0 10px 25px rgba(0,140,255,0.25);
+    }
+
+    .venmo-button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 15px 35px rgba(0,140,255,0.35);
+    }
+
+    /* APPLE */
+    .apple-button {
+      background: linear-gradient(135deg, #111111, #3d3d3d);
+      box-shadow: 0 10px 25px rgba(0,0,0,0.20);
+    }
+
+    .apple-button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 15px 35px rgba(0,0,0,0.30);
+    }
+
+    /* DISCLAIMER */
+    .rewards-disclaimer {
+      max-width: 850px;
+      margin: 35px auto 0;
+      text-align: center;
+      color: #9ca3af;
+      font-size: 11px;
+      line-height: 1.6;
+    }
+
+    /* TABLET */
+    @media (max-width: 950px) {
+      .rewards-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      .reward-card:last-child {
+        grid-column: 1 / -1;
+        max-width: 500px;
+        width: 100%;
+        margin: 0 auto;
+      }
+    }
+
+    /* MOBILE */
+    @media (max-width: 650px) {
+      .rewards-center {
+        padding: 45px 15px;
+      }
+      .rewards-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+      }
+      .reward-card:last-child {
+        grid-column: auto;
+        max-width: none;
+      }
+      .logo-area {
+        height: 220px;
+      }
+      .reward-content {
+        padding: 25px;
+      }
+      .reward-value {
+        font-size: 39px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <section class="rewards-center">
+
+    <div class="rewards-header">
+      <div class="rewards-label">REWARDS CENTER</div>
+      <h1>Featured Rewards</h1>
+      <p>Explore our featured reward opportunities below.</p>
+    </div>
+
+    <div class="rewards-grid">
+
+      <!-- AMAZON -->
+      <article class="reward-card amazon-card">
+        <div class="featured-badge">
+          ★ FEATURED OFFER
+        </div>
+        <div class="logo-area">
+          <img src="https://imagizer.imageshack.com/img922/4213/SPiPFG.png" alt="Amazon">
+        </div>
+        <div class="reward-content">
+          <span class="reward-type">AMAZON REWARD</span>
+          <h2>Amazon</h2>
+          <div class="reward-value">
+            $1,000
+            <small>REWARD</small>
+          </div>
+          <p>
+            Discover the opportunity to receive a
+            <strong>$1,000 Amazon reward</strong>.
+            Complete the available offer to learn more.
+          </p>
+          <a href="https://amazon-exclusive-gift.lesmanagroup.com/" class="reward-button amazon-button" target="_blank" rel="noopener noreferrer">
+            View $1,000 Offer
+            <span>→</span>
+          </a>
+        </div>
+      </article>
+
+      <!-- VENMO -->
+      <article class="reward-card venmo-card">
+        <div class="featured-badge">
+          ★ FEATURED OFFER
+        </div>
+        <div class="logo-area">
+          <img src="https://imagizer.imageshack.com/img923/152/87ZcMx.png" alt="Venmo">
+        </div>
+        <div class="reward-content">
+          <span class="reward-type">VENMO REWARD</span>
+          <h2>Venmo</h2>
+          <div class="reward-value">
+            $750
+            <small>REWARD</small>
+          </div>
+          <p>
+            Explore the featured opportunity for a
+            <strong>$750 Venmo reward</strong>.
+            Check the available offer for details.
+          </p>
+          <a href="https://www.cdnflair.com/view.php?id=5546869&pub=3361753" class="reward-button venmo-button" target="_blank" rel="noopener noreferrer">
+            View $750 Offer
+            <span>→</span>
+          </a>
+        </div>
+      </article>
+
+      <!-- APPLE -->
+      <article class="reward-card apple-card">
+        <div class="featured-badge">
+          ★ FEATURED OFFER
+        </div>
+        <div class="logo-area">
+          <img src="https://imagizer.imageshack.com/img924/486/oJwODK.png" alt="Apple">
+        </div>
+        <div class="reward-content">
+          <span class="reward-type">APPLE REWARD</span>
+          <h2>Apple</h2>
+          <div class="reward-value">
+            $1,000
+            <small>REWARD</small>
+          </div>
+          <p>
+            Discover the featured opportunity for a
+            <strong>$1,000 Apple reward</strong>.
+            Check the available offer for details.
+          </p>
+          <a href="https://www.qckclk.com/view.php?id=5546916&pub=3361753" class="reward-button apple-button" target="_blank" rel="noopener noreferrer">
+            View $1,000 Offer
+            <span>→</span>
+          </a>
+        </div>
+      </article>
+
+    </div>
+
+    <div class="rewards-disclaimer">
+      Offers, rewards, and eligibility may vary. Brand names and trademarks belong to their respective owners.
+    </div>
+
+  </section>
+
+</body>
+</html>
